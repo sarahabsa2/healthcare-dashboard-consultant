@@ -1,0 +1,741 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+  <!-- تعيين الاتجاه/اللغة مبكرًا لمنع الوميض -->
+  <script>
+    window.lsGet=function(k){try{return localStorage.getItem(k);}catch(e){return null;}};
+    window.lsSet=function(k,v){try{localStorage.setItem(k,v);}catch(e){}};
+    (function(){
+      try{
+        var saved = lsGet('lang');
+        var isAr = saved === 'ar';
+        document.documentElement.dir  = isAr ? 'rtl' : 'ltr';
+        document.documentElement.lang = isAr ? 'ar'  : 'en';
+      }catch(e){
+        document.documentElement.dir  = 'ltr';
+        document.documentElement.lang = 'en';
+      }
+    })();
+  </script>
+
+  <title>Healthcare Dashboard Consultant</title>
+
+  <!-- تحسين تحميل الخطوط -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+
+
+  <style>
+  :root{
+    color-scheme: dark;
+    --bg:#0a1224;
+    --panel:#0e1a33;
+    --panel-2:#0c1426;
+    --ink:#f0f6ff;
+    --muted:#c9d6f4;
+    --sky:#60a5fa;
+    --blue:#3b82f6;
+    --violet:#8b5cf6;
+    --pink:#f472b6;
+    --pink-2:#fb7185;
+    --orange:#f59e0b;
+    --orange-2:#fbbf24;
+    --border:#1e2b45;
+    --radius:18px;
+    --shadow:0 18px 40px rgba(2,6,23,.35);
+    --shadow-sm:0 8px 24px rgba(2,6,23,.25);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    background:
+      radial-gradient(900px 500px at 110% -10%, rgba(99,102,241,.12), transparent 60%),
+      radial-gradient(700px 420px at -10% 110%, rgba(14,165,233,.10), transparent 60%),
+      var(--bg);
+    color:var(--muted);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit}
+  .container{max-width:1100px;margin-inline:auto;padding:28px}
+
+  /* Language button */
+  .lang{
+    position:fixed; right:16px; bottom:18px; z-index:50;
+    background:linear-gradient(135deg,var(--pink),var(--pink-2));
+    color:#fff; font-weight:800; border:none; border-radius:999px;
+    padding:10px 14px; box-shadow:0 10px 30px rgba(251,113,133,.35);
+    cursor:pointer;
+  }
+
+  /* HERO */
+  .hero{padding:36px 24px}
+  .hero-inner{
+    max-width:1100px; margin:0 auto;
+    display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center;
+  }
+  .hero-title{
+    font-family:Montserrat,Inter,sans-serif;
+    font-weight:800; color:var(--ink);
+    font-size:clamp(28px,4.8vw,44px);
+    margin:0 0 8px;
+  }
+  .hero-title .wave{
+    display:inline-block; margin-right:.35rem;
+    filter: drop-shadow(0 0 6px rgba(245,158,11,.7));
+    animation:wave 1.6s infinite;
+  }
+  @keyframes wave{0%,60%,100%{transform:rotate(0)}30%{transform:rotate(15deg)}}
+  .hero-sub{margin:0; color:var(--muted); line-height:1.7; font-size:clamp(14px,2.2vw,18px)}
+
+  /* HERO Polishing (transparent + glow) */
+  .hero-art{
+    margin:0;
+    border-radius:20px;
+    overflow:hidden;
+    background: transparent;
+    border: 0;
+    box-shadow: 0 16px 38px rgba(2,6,23,.55);
+  }
+  .hero-art img{
+    display:block;width:100%;height:auto;object-fit:cover;aspect-ratio:16/9;
+    filter: drop-shadow(0 0 22px rgba(124,195,255,.45));
+  }
+
+  .section{padding:32px 24px}
+  @media (max-width:640px){
+    .hero-inner{ grid-template-columns:1fr; }
+    .hero-art{ max-width:460px; width:100%; }
+  }
+
+  /* HOW IT WORKS block */
+  .upload-wrap{max-width:980px;margin:0 auto;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:22px 20px}
+  .upload-title{color:var(--ink);font:800 clamp(22px,3.8vw,30px)/1.2 Montserrat,Inter,sans-serif;margin:0 0 6px}
+  .howit .upload-title { margin-bottom: 10px; }
+  .how-steps { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 12px; }
+  .how-step { display: flex; align-items: center; gap: 12px; }
+  .how-ic {
+    width: 42px; height: 42px; border-radius: 999px; display: grid; place-items: center;
+    font-size: 22px; box-shadow: var(--shadow-sm);
+  }
+  .how-ic.violet { background: linear-gradient(135deg,var(--violet),var(--sky)); color: #fff; }
+  .how-ic.pink   { background: linear-gradient(135deg,var(--pink),var(--pink-2)); color: #fff; }
+  .how-ic.sky    { background: linear-gradient(135deg,var(--blue),var(--sky)); color: #fff; }
+  .how-ic.orange { background: linear-gradient(135deg,#f59e0b,#fbbf24); color: #fff; }
+  .how-ic.blue   { background: linear-gradient(135deg,#2563EB,#60A5FA); color: #fff; }
+  .how-txt strong { color: var(--ink); font-weight: 800; }
+  .howit-wrap { cursor: pointer; }
+  .howit-wrap:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; border-radius: 14px; }
+  .status{margin-top:10px;color:#93c5fd;font-size:12px}
+
+  /* LEVELS HEADER */
+  .levels-head{max-width:980px;margin:0 auto 6px;display:flex;align-items:center}
+  .headline-xl{
+    font:800 clamp(26px,4.8vw,44px)/1.15 Montserrat,Inter,sans-serif;
+    color:var(--orange);
+    text-shadow:0 0 10px rgba(245,158,11,.6),0 0 20px rgba(251,191,36,.4);
+    display:flex;align-items:center;gap:10px;margin:0;
+  }
+  .headline-xl::after{
+    content:"➜"; font-size:1.2em; color:var(--orange-2);
+    animation:arrowMove 1.5s infinite alternate;
+    filter: drop-shadow(0 0 8px rgba(251,191,36,.6));
+  }
+  @keyframes arrowMove{from{transform:translateX(0);opacity:.85}to{transform:translateX(6px);opacity:1}}
+
+  /* CARDS (مفتحة + نيون) */
+  .cards-vertical{max-width:980px;margin:0 auto;display:grid;gap:16px}
+  .card{
+    background: #16294F;
+    border: 2px solid #7CC3FF;
+    border-radius:18px;
+    padding: 22px 22px 20px;
+    box-shadow: 0 10px 28px rgba(2,6,23,.35), 0 0 22px rgba(124,195,255,.25);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    min-height: 300px;
+    opacity: 0; transform: translateY(14px);
+    animation: fadeSlideUp .6s cubic-bezier(.22, .61, .36, 1) forwards;
+    will-change: transform, opacity;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 35px rgba(96,165,250,.4), 0 8px 30px rgba(2,6,23,.4);
+    border-color:rgba(147,197,253,.85);
+  }
+  .card-head{display:flex;gap:18px;align-items:center;margin-bottom:8px}
+  .ic{width:96px;height:96px;display:grid;place-items:center}
+  .ic-img{
+    width:88px;height:88px;object-fit:contain;
+    filter: drop-shadow(0 0 12px rgba(96,165,250,.55)) drop-shadow(0 0 6px rgba(251,113,133,.25));
+  }
+  .card-title{color:#EAF2FF;margin:0;font:800 26px/1.22 Montserrat,Inter,sans-serif; text-shadow:none}
+  .card-sub{color:#CFE0FF;margin:2px 0 8px}
+  .card-desc{color:#CFE0FF;margin:10px 0 0;line-height:1.7}
+
+  /* زرار الكارت: عالمي (56px، 92% عرض، متمركز) + أيقونة قبل النص */
+  .big-btn{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    width:92%; min-height:56px; margin:10px auto 0;
+    font-size:19px; font-weight:900;
+    border-radius:18px; padding:0 18px; text-align:center;
+    color:#fff;
+    border: 1px solid rgba(147,197,253,.50);
+    box-shadow: 0 10px 30px rgba(59,130,246,.30), 0 0 14px rgba(124,195,255,.25);
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, filter .16s ease;
+    animation: fadeSlideUp .5s cubic-bezier(.22, .61, .36, 1) .1s both, glowPulse 1.4s ease-in-out .7s 2 alternate;
+    will-change: transform, box-shadow, opacity;
+  }
+  .big-btn:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 14px 36px rgba(59,130,246,.35), 0 0 18px rgba(124,195,255,.35);
+    filter: brightness(1.03);
+  }
+  .big-btn:active{ transform: translateY(0); }
+  .big-btn:focus-visible{ outline: 3px solid var(--sky); outline-offset: 3px; }
+  .big-btn::before{ font-size: 22px; line-height:1; content: ""; }
+  .big-btn[data-level="corporate"]::before{ content: "🏛️"; }
+  .big-btn[data-level="tactical"]::before{  content: "🛠️"; }
+  .big-btn[data-level="functional"]::before{content: "⚙️"; }
+  .big-btn[data-level="all"]::before{        content: "🔷"; }
+  [dir="rtl"] .big-btn{ flex-direction: row-reverse; }
+  @media (max-width:520px){ .big-btn{ width:100%; } }
+
+  /* تدرجات خاصة بكل مستوى */
+  .big-btn[data-level="corporate"]{  background: linear-gradient(135deg,#2563EB,#60A5FA); }
+  .big-btn[data-level="tactical"]{   background: linear-gradient(135deg,#7C3AED,#60A5FA); }
+  .big-btn[data-level="functional"]{ background: linear-gradient(135deg,#EC4899,#60A5FA); }
+  .big-btn[data-level="all"]{        background: linear-gradient(135deg,#F59E0B,#3B82F6); }
+  .big-btn[data-level]:hover{
+    box-shadow: 0 14px 38px rgba(59,130,246,.35), 0 0 22px rgba(124,195,255,.40);
+  }
+
+  /* Stagger للكروت */
+  .cards-vertical .card:nth-child(1){ animation-delay: .05s; }
+  .cards-vertical .card:nth-child(2){ animation-delay: .15s; }
+  .cards-vertical .card:nth-child(3){ animation-delay: .25s; }
+  .cards-vertical .card:nth-child(4){ animation-delay: .35s; }
+
+  /* Animations */
+  @keyframes fadeSlideUp { 0%{opacity:0;transform:translateY(14px)} 100%{opacity:1;transform:translateY(0)} }
+  @keyframes glowPulse {
+    0% { box-shadow: 0 10px 30px rgba(59,130,246,.30), 0 0 14px rgba(124,195,255,.25); }
+    100%{ box-shadow: 0 14px 36px rgba(59,130,246,.35), 0 0 18px rgba(124,195,255,.35); }
+  }
+
+  /* INTEGRATION BANNER */
+  .integration-banner{
+    max-width:980px; margin:0 auto;
+    display:flex; align-items:center; gap:14px;
+    background:#16294F;
+    border:2px solid #7CC3FF;
+    box-shadow: 0 10px 28px rgba(2,6,23,.30), 0 0 18px rgba(124,195,255,.25);
+    border-radius:18px; padding:16px 18px;
+  }
+  .ib-ic{
+    flex:0 0 52px; width:52px; height:52px; border-radius:999px;
+    display:grid; place-items:center; font-size:24px; color:#fff;
+    background: linear-gradient(135deg,#3B82F6,#60A5FA);
+    box-shadow: 0 8px 22px rgba(59,130,246,.35), 0 0 12px rgba(124,195,255,.35);
+  }
+  .ib-text{display:flex; flex-direction:column; gap:4px}
+  .ib-title{color:#EAF2FF; font:800 20px/1.2 Montserrat,Inter,sans-serif}
+  .ib-desc{color:#CFE0FF; font-size:15px; line-height:1.6}
+  [dir="rtl"] .integration-banner{ flex-direction:row-reverse; }
+  [dir="rtl"] .ib-text{ text-align:right; }
+
+  /* PPT زر وتحسيناته */
+  .ppt-wrap{max-width:980px;margin:4px auto 10px;text-align:center}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    padding:12px 20px; border-radius:18px; cursor:pointer; text-decoration:none;
+    font-family:inherit; font-size:16px; font-weight:900; color:#fff;
+    background:linear-gradient(135deg,var(--pink),var(--pink-2));
+    border:1px solid rgba(251,113,133,.55);
+    box-shadow:0 12px 32px rgba(251,113,133,.32), 0 0 14px rgba(244,114,182,.22);
+    transition:transform .16s ease, box-shadow .16s ease, filter .16s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); filter:brightness(1.05);
+    box-shadow:0 16px 38px rgba(251,113,133,.40), 0 0 20px rgba(244,114,182,.30); }
+  .btn:active{ transform:translateY(0); }
+  .btn.big{padding:16px 24px;font-size:18px}
+  a.big-btn{ text-decoration:none; }
+  .ppt-sub{margin-top:6px;color:#f0abfc}
+
+  /* Glow البنفسجي/الوردي + نبضة أيقونة */
+  .btn-glow{
+    animation: btnGlowPulse 1.2s ease-in-out;
+    box-shadow:
+      0 0 20px 8px rgba(192,132,252,0.6),
+      0 0 35px 12px rgba(251,113,133,0.55);
+    filter: brightness(1.25);
+  }
+  .btn-glow img{ animation: iconPulse 1.2s ease-in-out; }
+  @keyframes btnGlowPulse{
+    0%{ box-shadow:none; transform:scale(1); }
+    40%{
+      box-shadow:
+        0 0 25px 8px rgba(192,132,252,0.7),
+        0 0 35px 14px rgba(251,113,133,0.6);
+      transform:scale(1.04);
+    }
+    100%{ box-shadow:none; transform:scale(1); }
+  }
+  @keyframes iconPulse{
+    0%{ transform:translateY(0) scale(1); }
+    30%{ transform:translateY(-3px) scale(1.1); }
+    60%{ transform:translateY(0) scale(1); }
+    100%{ transform:translateY(0) scale(1); }
+  }
+
+  /* الوصولية */
+  a:focus-visible, .btn:focus-visible, .big-btn:focus-visible, .lang:focus-visible {
+    outline: 3px solid var(--sky);
+    outline-offset: 2px;
+    border-radius: 14px;
+  }
+  /* تقليل الحركة */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .cards-vertical .card,
+    .cards-vertical .big-btn { opacity:1 !important; transform:none !important; }
+  }
+  </style>
+
+<!-- صوت تفاعل خفيف -->
+<audio id="clickSound" preload="auto">
+  <source src="data:audio/wav;base64,UklGRhQCAABXQVZFZm10IBAAAAABAAEAESsAABErAAABAAgAZGF0YfABAACAxsujhXZWNEaOxsCZgnNSOFSZxbWSgHBPPWGiwauMfm1NRG6pu6KIfGlMTHqstZqFe2ZNVYSurpSCeWNPXoyup46Bd2FSZ5OsoIp/dF9Wb5ipmYd+cl5beJyllIR9cF5gf56gj4J8bl9mhZ6ci4F6bGBsip2XiIB5a2NyjpyThX94amZ3kZmPg352aml8k5eLgn11am2Bk5SIgX1zanGFk5GGgHxybHSIk46Ef3tybXiKkYuDf3pxb3yMkImCfnlxcn+MjoaBfnhxdIKNjIWAfXdyd4SMioOAfXdzeYaMiIJ/fHZ0fIeLhoF/fHZ2foiKhYF/e3Z3gIiIg4B+enZ5goiHgoB+end7g4iGgoB+enh8hIeFgX99eXh+hYeDgH99eXl/hYaDgH98eXuAhYWCgH98enyBhYSBgH58en2ChYOBf358e36DhIKAf357e3+DhIKAf357fICDg4GAf318fYCDg4GAf318fYGDgoCAf318foGDgoB/fn18f4KDgYB/fn19f4KCgYB/fn19gIKCgYB/fn1+gIKBgIB/fn1+gYKBgH9/fn1/gYKBgH9/fn5/gYGBgH9/fn6AgYGAgH9/fn6AgYGAgH9+fn+AgYGAgH9+fn+AgYCAf39+fn+AgYCAf39+fn+BgYCAf39+f4CB" type="audio/wav">
+</audio>
+
+<!-- Language toggle -->
+<button class="lang" id="langBtn">EN / AR</button>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1 class="hero-title">
+        <span class="wave">👋</span>
+        <span data-i18n="hero_title">Welcome to the Healthcare Dashboard Consultant</span>
+      </h1>
+      <p class="hero-sub" data-i18n="hero_sub">
+        Your trusted partner for analyzing and improving dashboards — turning your numbers into powerful insights.
+      </p>
+    </div>
+    <figure class="hero-art" role="img" aria-label="Healthcare dashboard illustration">
+      <img
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MDAgNDUwIiB3aWR0aD0iODAwIiBoZWlnaHQ9IjQ1MCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJwYW5lbCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzEzMjQ0OSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzBCMTQzMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJhcmVhIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjNjBBNUZBIiBzdG9wLW9wYWNpdHk9Ii41NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzYwQTVGQSIgc3RvcC1vcGFjaXR5PSIwIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImJhciIgeDE9IjAiIHkxPSIxIiB4Mj0iMCIgeTI9IjAiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iIzNCODJGNiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzdDQzNGRiIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJiYXJoaSIgeDE9IjAiIHkxPSIxIiB4Mj0iMCIgeTI9IjAiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0Y0NzJCNiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0ZCQkYyNCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjQwIiB5PSIyNiIgd2lkdGg9IjcyMCIgaGVpZ2h0PSIzOTgiIHJ4PSIyNiIgZmlsbD0idXJsKCNwYW5lbCkiIHN0cm9rZT0iIzkzQzVGRCIgc3Ryb2tlLW9wYWNpdHk9Ii4zMCIgc3Ryb2tlLXdpZHRoPSIyIi8+PHJlY3QgeD0iNjgiIHk9IjU0IiB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHJ4PSI5IiBmaWxsPSIjNjBBNUZBIiBmaWxsLW9wYWNpdHk9Ii4xOCIgc3Ryb2tlPSIjOTNDNUZEIiBzdHJva2Utb3BhY2l0eT0iLjU1IiBzdHJva2Utd2lkdGg9IjEuNiIvPjxwYXRoIGQ9Ik04MyA2MXYxNk03NSA2OWgxNiIgc3Ryb2tlPSIjN0NDM0ZGIiBzdHJva2Utd2lkdGg9IjMuNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHJlY3QgeD0iMTEyIiB5PSI2MCIgd2lkdGg9IjE1MCIgaGVpZ2h0PSIxMSIgcng9IjUuNSIgZmlsbD0iI0VBRjJGRiIgZmlsbC1vcGFjaXR5PSIuODAiLz48cmVjdCB4PSIxMTIiIHk9Ijc3IiB3aWR0aD0iOTYiIGhlaWdodD0iOCIgcng9IjQiIGZpbGw9IiM5M0M1RkQiIGZpbGwtb3BhY2l0eT0iLjQwIi8+PHJlY3QgeD0iNTk2IiB5PSI1OCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjIyIiByeD0iMTEiIGZpbGw9IiM2MEE1RkEiIGZpbGwtb3BhY2l0eT0iLjE2IiBzdHJva2U9IiM5M0M1RkQiIHN0cm9rZS1vcGFjaXR5PSIuMzUiIHN0cm9rZS13aWR0aD0iMS40Ii8+PHJlY3QgeD0iNjY0IiB5PSI1OCIgd2lkdGg9IjY4IiBoZWlnaHQ9IjIyIiByeD0iMTEiIGZpbGw9IiNGQjcxODUiIGZpbGwtb3BhY2l0eT0iLjE4IiBzdHJva2U9IiNGREE0QUYiIHN0cm9rZS1vcGFjaXR5PSIuNDUiIHN0cm9rZS13aWR0aD0iMS40Ii8+PHBhdGggZD0iTTY4IDEwNGg2NjQiIHN0cm9rZT0iIzkzQzVGRCIgc3Ryb2tlLW9wYWNpdHk9Ii4xOCIgc3Ryb2tlLXdpZHRoPSIxLjYiLz48cmVjdCB4PSI2OCIgeT0iMTIyIiB3aWR0aD0iMjE2IiBoZWlnaHQ9Ijc0IiByeD0iMTYiIGZpbGw9IiM2MEE1RkEiIGZpbGwtb3BhY2l0eT0iLjA5IiBzdHJva2U9IiM5M0M1RkQiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iODgiIHk9IjE1MCIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwtYXBwbGUtc3lzdGVtLFNlZ29lIFVJLFJvYm90byxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iMS42IiBmaWxsPSIjQUZDNkVFIj5DTEFJTVM8L3RleHQ+PHRleHQgeD0iODgiIHk9IjE4MCIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwtYXBwbGUtc3lzdGVtLFNlZ29lIFVJLFJvYm90byxzYW5zLXNlcmlmIiBmb250LXNpemU9IjI2IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjN0NDM0ZGIj4xMi40SzwvdGV4dD48cmVjdCB4PSIzMDAiIHk9IjEyMiIgd2lkdGg9IjIxNiIgaGVpZ2h0PSI3NCIgcng9IjE2IiBmaWxsPSIjNjBBNUZBIiBmaWxsLW9wYWNpdHk9Ii4wOSIgc3Ryb2tlPSIjOTNDNUZEIiBzdHJva2Utb3BhY2l0eT0iLjIyIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjMyMCIgeT0iMTUwIiBmb250LWZhbWlseT0ic3lzdGVtLXVpLC1hcHBsZS1zeXN0ZW0sU2Vnb2UgVUksUm9ib3RvLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGZvbnQtd2VpZ2h0PSI2MDAiIGxldHRlci1zcGFjaW5nPSIxLjYiIGZpbGw9IiNBRkM2RUUiPkFDQ0VQVEFOQ0U8L3RleHQ+PHRleHQgeD0iMzIwIiB5PSIxODAiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksLWFwcGxlLXN5c3RlbSxTZWdvZSBVSSxSb2JvdG8sc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNiIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzg2RUZBQyI+OTYuMiU8L3RleHQ+PHJlY3QgeD0iNTMyIiB5PSIxMjIiIHdpZHRoPSIyMTYiIGhlaWdodD0iNzQiIHJ4PSIxNiIgZmlsbD0iIzYwQTVGQSIgZmlsbC1vcGFjaXR5PSIuMDkiIHN0cm9rZT0iIzkzQzVGRCIgc3Ryb2tlLW9wYWNpdHk9Ii4yMiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48dGV4dCB4PSI1NTIiIHk9IjE1MCIgZm9udC1mYW1pbHk9InN5c3RlbS11aSwtYXBwbGUtc3lzdGVtLFNlZ29lIFVJLFJvYm90byxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmb250LXdlaWdodD0iNjAwIiBsZXR0ZXItc3BhY2luZz0iMS42IiBmaWxsPSIjQUZDNkVFIj5BVkcuIERBWVM8L3RleHQ+PHRleHQgeD0iNTUyIiB5PSIxODAiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWksLWFwcGxlLXN5c3RlbSxTZWdvZSBVSSxSb2JvdG8sc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNiIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iI0ZCQkYyNCI+NC44PC90ZXh0PjxyZWN0IHg9IjY4IiB5PSIyMTQiIHdpZHRoPSI0MDgiIGhlaWdodD0iMTgyIiByeD0iMTgiIGZpbGw9IiM2MEE1RkEiIGZpbGwtb3BhY2l0eT0iLjA2IiBzdHJva2U9IiM5M0M1RkQiIHN0cm9rZS1vcGFjaXR5PSIuMTgiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHJlY3QgeD0iOTIiIHk9IjIzNCIgd2lkdGg9IjEwNCIgaGVpZ2h0PSI5IiByeD0iNC41IiBmaWxsPSIjOTNDNUZEIiBmaWxsLW9wYWNpdHk9Ii40NSIvPjxwYXRoIGQ9Ik05MiAyNjhoMzYwIiBzdHJva2U9IiM5M0M1RkQiIHN0cm9rZS1vcGFjaXR5PSIuMTIiIHN0cm9rZS13aWR0aD0iMS40Ii8+PHBhdGggZD0iTTkyIDI5NmgzNjAiIHN0cm9rZT0iIzkzQzVGRCIgc3Ryb2tlLW9wYWNpdHk9Ii4xMiIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48cGF0aCBkPSJNOTIgMzI0aDM2MCIgc3Ryb2tlPSIjOTNDNUZEIiBzdHJva2Utb3BhY2l0eT0iLjEyIiBzdHJva2Utd2lkdGg9IjEuNCIvPjxwYXRoIGQ9Ik05MiAzNTJoMzYwIiBzdHJva2U9IiM5M0M1RkQiIHN0cm9rZS1vcGFjaXR5PSIuMTIiIHN0cm9rZS13aWR0aD0iMS40Ii8+PHBhdGggZD0iTTkyIDM0OCBMMTUyIDMxOCBMMjEyIDMzMCBMMjcyIDI4OCBMMzMyIDMwMCBMMzkyIDI2MiBMNDUyIDI0MCBMNDUyIDM3MiBMOTIgMzcyIFoiIGZpbGw9InVybCgjYXJlYSkiLz48cG9seWxpbmUgcG9pbnRzPSI5MiwzNDggMTUyLDMxOCAyMTIsMzMwIDI3MiwyODggMzMyLDMwMCAzOTIsMjYyIDQ1MiwyNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdDQzNGRiIgc3Ryb2tlLXdpZHRoPSIzLjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxjaXJjbGUgY3g9IjQ1MiIgY3k9IjI0MCIgcj0iNyIgZmlsbD0iI0ZCNzE4NSIgc3Ryb2tlPSIjMEIxNDMwIiBzdHJva2Utd2lkdGg9IjMiLz48cmVjdCB4PSI0OTIiIHk9IjIxNCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSIxODIiIHJ4PSIxOCIgZmlsbD0iIzYwQTVGQSIgZmlsbC1vcGFjaXR5PSIuMDYiIHN0cm9rZT0iIzkzQzVGRCIgc3Ryb2tlLW9wYWNpdHk9Ii4xOCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz48cmVjdCB4PSI1MTYiIHk9IjIzNCIgd2lkdGg9Ijg2IiBoZWlnaHQ9IjkiIHJ4PSI0LjUiIGZpbGw9IiM5M0M1RkQiIGZpbGwtb3BhY2l0eT0iLjQ1Ii8+PHBhdGggZD0iTTUxNiAzNzJoMTkyIiBzdHJva2U9IiM5M0M1RkQiIHN0cm9rZS1vcGFjaXR5PSIuMjIiIHN0cm9rZS13aWR0aD0iMS42Ii8+PHJlY3QgeD0iNTE2IiB5PSIzMTQiIHdpZHRoPSIyNiIgaGVpZ2h0PSI1OCIgcng9IjgiIGZpbGw9InVybCgjYmFyKSIvPjxyZWN0IHg9IjU1NiIgeT0iMjgwIiB3aWR0aD0iMjYiIGhlaWdodD0iOTIiIHJ4PSI4IiBmaWxsPSJ1cmwoI2JhcikiLz48cmVjdCB4PSI1OTYiIHk9IjMyNiIgd2lkdGg9IjI2IiBoZWlnaHQ9IjQ2IiByeD0iOCIgZmlsbD0idXJsKCNiYXIpIi8+PHJlY3QgeD0iNjM2IiB5PSIyNjAiIHdpZHRoPSIyNiIgaGVpZ2h0PSIxMTIiIHJ4PSI4IiBmaWxsPSJ1cmwoI2JhcmhpKSIvPjxyZWN0IHg9IjY3NiIgeT0iMjk2IiB3aWR0aD0iMjYiIGhlaWdodD0iNzYiIHJ4PSI4IiBmaWxsPSJ1cmwoI2JhcikiLz48L3N2Zz4="
+        alt="Healthcare dashboard illustration"
+        loading="eager"
+        decoding="async"/>
+    </figure>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section howit">
+  <div class="upload-wrap howit-wrap" id="howit" role="button" tabindex="0" aria-label="How it works">
+    <h2 class="upload-title" data-i18n="how_title">
+      How it works — start your smart journey 💡
+    </h2>
+
+    <ul class="how-steps" aria-describedby="howit">
+      <li class="how-step">
+        <span class="how-ic violet" aria-hidden="true">📊</span>
+        <div class="how-txt">
+          <strong data-i18n="how_s1_b">Choose your level of analysis</strong>
+        </div>
+      </li>
+
+      <li class="how-step">
+        <span class="how-ic pink" aria-hidden="true">🤖</span>
+        <div class="how-txt">
+          <strong data-i18n="how_s2_b">The AI assistant opens</strong>
+        </div>
+      </li>
+
+      <li class="how-step">
+        <span class="how-ic orange" aria-hidden="true">🗂️</span>
+        <div class="how-txt">
+          <strong data-i18n="how_s3_b">Upload your Excel or dashboard file</strong>
+        </div>
+      </li>
+
+      <li class="how-step">
+        <span class="how-ic blue" aria-hidden="true">🔍</span>
+        <div class="how-txt">
+          <strong data-i18n="how_s4_b">AI analyzes your data</strong>
+        </div>
+      </li>
+
+      <li class="how-step">
+        <span class="how-ic sky" aria-hidden="true">📑</span>
+        <div class="how-txt">
+          <strong data-i18n="how_s5_b">Generate your PowerPoint presentation</strong>
+        </div>
+      </li>
+    </ul>
+
+    <div id="status" class="status" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- LEVELS HEADER -->
+<section class="section" id="levels">
+  <div class="levels-head">
+    <h2 class="headline-xl" data-i18n="levels_title">Choose your level of analysis</h2>
+  </div>
+  <!-- تم حذف الجملة البرتقالية حسب رغبتك -->
+</section>
+
+<!-- CARDS -->
+<section class="section">
+  <div class="cards-vertical">
+
+    <!-- Corporate -->
+    <article class="card">
+      <div class="card-head">
+        <span class="ic">
+          <img class="ic-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiIgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImdfY29ycG9yYXRlIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjRkJCRjI0Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjU5RTBCIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyLjYiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwb2x5Z29uIHBvaW50cz0iNDgsMTkgNjAuNSw0MCAzNS41LDQwIiBmaWxsPSJ1cmwoI2dfY29ycG9yYXRlKSIgc3Ryb2tlPSIjRkRFNjhBIiBzdHJva2Utb3BhY2l0eT0iLjk1Ii8+PHBvbHlnb24gcG9pbnRzPSIzNS4xLDQyLjUgNjAuOSw0Mi41IDczLjMsNjMgMjIuNyw2MyIgZmlsbD0iIzYwQTVGQSIgZmlsbC1vcGFjaXR5PSIuMTAiIHN0cm9rZT0iIzkzQzVGRCIgc3Ryb2tlLW9wYWNpdHk9Ii40MCIvPjxwb2x5Z29uIHBvaW50cz0iMjIuMyw2NS41IDczLjcsNjUuNSA4Niw4NiAxMCw4NiIgZmlsbD0iIzYwQTVGQSIgZmlsbC1vcGFjaXR5PSIuMTAiIHN0cm9rZT0iIzkzQzVGRCIgc3Ryb2tlLW9wYWNpdHk9Ii40MCIvPjwvZz48L3N2Zz4=" alt="Corporate level icon"/>
+        </span>
+        <div>
+          <h3 class="card-title" data-i18n="corp_title">Corporate Level (Executives & Stakeholders)</h3>
+          <p class="card-sub" data-i18n="corp_tag">See the Big Picture — Lead with Vision</p>
+        </div>
+      </div>
+      <a class="big-btn" data-level="corporate" data-i18n="corp_btn" href="https://chatgpt.com/g/g-68ebed5641488191ab5893162ccfe915-corporate-strategic-consultant" target="_blank" rel="noopener noreferrer">Strategic / Corporate Level</a>
+      <p class="card-desc" data-i18n="corp_desc">
+        For hospital leaders and stakeholders who turn data into direction and trust — transforming data into strategic insights.
+      </p>
+    </article>
+
+    <!-- Tactical -->
+    <article class="card">
+      <div class="card-head">
+        <span class="ic">
+          <img class="ic-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiIgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImdfdGFjdGljYWwiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM3Q0MzRkYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMzQjgyRjYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48ZyBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIuNiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBvbHlnb24gcG9pbnRzPSI0OCwxOSA2MC41LDQwIDM1LjUsNDAiIGZpbGw9IiM2MEE1RkEiIGZpbGwtb3BhY2l0eT0iLjEwIiBzdHJva2U9IiM5M0M1RkQiIHN0cm9rZS1vcGFjaXR5PSIuNDAiLz48cG9seWdvbiBwb2ludHM9IjM1LjEsNDIuNSA2MC45LDQyLjUgNzMuMyw2MyAyMi43LDYzIiBmaWxsPSJ1cmwoI2dfdGFjdGljYWwpIiBzdHJva2U9IiNCRkRCRkUiIHN0cm9rZS1vcGFjaXR5PSIuOTUiLz48cG9seWdvbiBwb2ludHM9IjIyLjMsNjUuNSA3My43LDY1LjUgODYsODYgMTAsODYiIGZpbGw9IiM2MEE1RkEiIGZpbGwtb3BhY2l0eT0iLjEwIiBzdHJva2U9IiM5M0M1RkQiIHN0cm9rZS1vcGFjaXR5PSIuNDAiLz48L2c+PC9zdmc+" alt="Tactical level icon"/>
+        </span>
+        <div>
+          <h3 class="card-title" data-i18n="tac_title">Tactical Level (Department Heads & Managers)</h3>
+          <p class="card-sub" data-i18n="tac_tag">Fix. Improve. Perform.</p>
+        </div>
+      </div>
+      <a class="big-btn" data-level="tactical" data-i18n="tac_btn" href="https://chatgpt.com/g/g-68ebf1b6d5588191aecb24d52ed65832-tactical-operations-consultant" target="_blank" rel="noopener noreferrer">Tactical Level</a>
+      <p class="card-desc" data-i18n="tac_desc">
+        For frontline leaders who translate strategic goals into practical plans, identify root causes, and guide teams toward the best outcomes.
+      </p>
+    </article>
+
+    <!-- Functional -->
+    <article class="card">
+      <div class="card-head">
+        <span class="ic">
+          <img class="ic-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiIgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImdfZnVuY3Rpb25hbCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI0E3OEJGQSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0Y0NzJCNiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxnIGZpbGw9Im5vbmUiIHN0cm9rZS13aWR0aD0iMi42IiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cG9seWdvbiBwb2ludHM9IjQ4LDE5IDYwLjUsNDAgMzUuNSw0MCIgZmlsbD0iIzYwQTVGQSIgZmlsbC1vcGFjaXR5PSIuMTAiIHN0cm9rZT0iIzkzQzVGRCIgc3Ryb2tlLW9wYWNpdHk9Ii40MCIvPjxwb2x5Z29uIHBvaW50cz0iMzUuMSw0Mi41IDYwLjksNDIuNSA3My4zLDYzIDIyLjcsNjMiIGZpbGw9IiM2MEE1RkEiIGZpbGwtb3BhY2l0eT0iLjEwIiBzdHJva2U9IiM5M0M1RkQiIHN0cm9rZS1vcGFjaXR5PSIuNDAiLz48cG9seWdvbiBwb2ludHM9IjIyLjMsNjUuNSA3My43LDY1LjUgODYsODYgMTAsODYiIGZpbGw9InVybCgjZ19mdW5jdGlvbmFsKSIgc3Ryb2tlPSIjRTlENUZGIiBzdHJva2Utb3BhY2l0eT0iLjk1Ii8+PC9nPjwvc3ZnPg==" alt="Functional level icon"/>
+        </span>
+        <div>
+          <h3 class="card-title" data-i18n="fun_title">Functional Level (Unit Leaders & Supervisors)</h3>
+          <p class="card-sub" data-i18n="fun_tag">Understand. Act. Optimize.</p>
+        </div>
+      </div>
+      <a class="big-btn" data-level="functional" data-i18n="fun_btn" href="https://chatgpt.com/g/g-68ebf7fedca88191b8d7292b166fcbd2-functional-operations-rcm-specialist" target="_blank" rel="noopener noreferrer">Operational / Functional Level</a>
+      <p class="card-desc" data-i18n="fun_desc">
+        Focus on daily workflow and KPIs — get clear, simple, actionable steps for continuous improvement.
+      </p>
+    </article>
+
+    <!-- All Levels -->
+    <article class="card">
+      <div class="card-head">
+        <span class="ic">
+          <img class="ic-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NiA5NiIgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImdfY29ycG9yYXRlIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjRkJCRjI0Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjU5RTBCIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImdfdGFjdGljYWwiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM3Q0MzRkYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMzQjgyRjYiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0iZ19mdW5jdGlvbmFsIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjQTc4QkZBIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjQ3MkI2Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIyLjYiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwb2x5Z29uIHBvaW50cz0iNDgsMTkgNjAuNSw0MCAzNS41LDQwIiBmaWxsPSJ1cmwoI2dfY29ycG9yYXRlKSIgc3Ryb2tlPSIjRkRFNjhBIiBzdHJva2Utb3BhY2l0eT0iLjk1Ii8+PHBvbHlnb24gcG9pbnRzPSIzNS4xLDQyLjUgNjAuOSw0Mi41IDczLjMsNjMgMjIuNyw2MyIgZmlsbD0idXJsKCNnX3RhY3RpY2FsKSIgc3Ryb2tlPSIjQkZEQkZFIiBzdHJva2Utb3BhY2l0eT0iLjk1Ii8+PHBvbHlnb24gcG9pbnRzPSIyMi4zLDY1LjUgNzMuNyw2NS41IDg2LDg2IDEwLDg2IiBmaWxsPSJ1cmwoI2dfZnVuY3Rpb25hbCkiIHN0cm9rZT0iI0U5RDVGRiIgc3Ryb2tlLW9wYWNpdHk9Ii45NSIvPjwvZz48L3N2Zz4=" alt="All levels icon"/>
+        </span>
+        <div>
+          <h3 class="card-title" data-i18n="all_title">All Levels (Comprehensive View)</h3>
+          <p class="card-sub" data-i18n="all_tag">See. Understand. Decide.</p>
+        </div>
+      </div>
+      <a class="big-btn" data-level="all" data-i18n="all_btn" href="https://chatgpt.com/g/g-68ec2b55a4588191b35347d6900137d1-all-levels" target="_blank" rel="noopener noreferrer">All Levels Overview</a>
+      <p class="card-desc" data-i18n="all_desc">
+        A complete dashboard reading with unified insights and recommendations across all levels.
+      </p>
+    </article>
+
+  </div>
+</section>
+
+<!-- INTEGRATION BANNER -->
+<section class="section">
+  <div class="integration-banner" role="note" aria-label="Levels integration banner">
+    <span class="ib-ic" aria-hidden="true">⚙️</span>
+    <div class="ib-text">
+      <div class="ib-title" data-i18n="ib_title">Smart Connection Between Levels</div>
+      <div class="ib-desc" data-i18n="ib_desc">
+        Each level’s results become the starting point for the next — creating smooth teamwork across the decision chain.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PPT -->
+<section class="section">
+  <div class="ppt-wrap">
+    <a class="btn pink big" id="pptBtn" href="https://chatgpt.com/g/g-68ed00161ed4819183f389185938cbd5-ppt" target="_blank" rel="noopener noreferrer">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0OCA0OCIgd2lkdGg9IjQ4IiBoZWlnaHQ9IjQ4Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9InBiIiB4MT0iMCIgeTE9IjEiIHgyPSIwIiB5Mj0iMCI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjRjQ3MkI2Ii8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRkJCRjI0Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iNSIgeT0iNyIgd2lkdGg9IjM4IiBoZWlnaHQ9IjI3IiByeD0iNSIgZmlsbD0iIzBFMUEzMyIgZmlsbC1vcGFjaXR5PSIuODUiIHN0cm9rZT0iI0ZCQ0ZFOCIgc3Ryb2tlLW9wYWNpdHk9Ii45IiBzdHJva2Utd2lkdGg9IjIuNCIvPjxyZWN0IHg9IjEyIiB5PSIyNCIgd2lkdGg9IjUuNSIgaGVpZ2h0PSI2IiByeD0iMiIgZmlsbD0idXJsKCNwYikiLz48cmVjdCB4PSIyMS4yNSIgeT0iMTkiIHdpZHRoPSI1LjUiIGhlaWdodD0iMTEiIHJ4PSIyIiBmaWxsPSJ1cmwoI3BiKSIvPjxyZWN0IHg9IjMwLjUiIHk9IjE0LjUiIHdpZHRoPSI1LjUiIGhlaWdodD0iMTUuNSIgcng9IjIiIGZpbGw9InVybCgjcGIpIi8+PHBhdGggZD0iTTI0IDM0djZNMTcgNDFoMTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZCQ0ZFOCIgc3Ryb2tlLW9wYWNpdHk9Ii45IiBzdHJva2Utd2lkdGg9IjIuNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PC9zdmc+" alt="" width="36" height="36" style="vertical-align:middle;margin-right:10px">
+      <span data-i18n="ppt_btn">Generate your PPT</span>
+    </a>
+    <div class="ppt-sub" data-i18n="ppt_sub">Turn insights into impact.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="text-align:center;font-size:14px;color:#fff;margin-top:50px;padding:20px 0;background:linear-gradient(90deg,rgba(255,105,180,0.15),rgba(72,239,255,0.15));border-top:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(6px);animation:glow 4s ease-in-out infinite alternate;">
+  <span id="footerText" data-i18n="footer">© 2025 Healthcare Dashboard Consultant — Designed by </span>
+  <strong id="footerName" style="color:#ff99cc;" data-i18n="footer_name">Dr. Sara Habsa</strong>
+</footer>
+
+<script>
+/* ================= i18n Dictionary ================= */
+const T={
+  en:{
+    hero_title:"Welcome to the Healthcare Dashboard Consultant",
+    hero_sub:"Your trusted partner for analyzing and improving dashboards — turning your numbers into powerful insights.",
+
+    /* LEVELS */
+    levels_title:"Choose your level of analysis",
+
+    /* CARDS */
+    corp_title:"Corporate Level (Executives & Stakeholders)",
+    corp_tag:"See the Big Picture — Lead with Vision",
+    corp_btn:"Strategic / Corporate Level",
+    corp_desc:"For hospital leaders and stakeholders who turn data into direction and trust — transforming data into strategic insights.",
+    tac_title:"Tactical Level (Department Heads & Managers)",
+    tac_tag:"Fix. Improve. Perform.",
+    tac_btn:"Tactical Level",
+    tac_desc:"For frontline leaders who translate strategic goals into practical plans, identify root causes, and guide teams toward the best outcomes.",
+    fun_title:"Functional Level (Unit Leaders & Supervisors)",
+    fun_tag:"Understand. Act. Optimize.",
+    fun_btn:"Operational / Functional Level",
+    fun_desc:"Focus on daily workflow and KPIs — get clear, simple, actionable steps for continuous improvement.",
+    all_title:"All Levels (Comprehensive View)",
+    all_tag:"See. Understand. Decide.",
+    all_btn:"All Levels Overview",
+    all_desc:"A complete dashboard reading with unified insights and recommendations across all levels.",
+
+    /* HOW IT WORKS (5 خطوات) */
+    how_title:"How it works — start your smart journey 💡",
+    how_s1_b:"Choose your level of analysis",
+    how_s2_b:"The AI assistant opens",
+    how_s3_b:"Upload your Excel or dashboard file",
+    how_s4_b:"AI analyzes your data",
+    how_s5_b:"Generate your PowerPoint presentation",
+
+    /* INTEGRATION BANNER */
+    ib_title:"Smart Connection Between Levels",
+    ib_desc:"Each level’s results become the starting point for the next — creating smooth teamwork across the decision chain.",
+
+    /* PPT */
+    ppt_btn:"Generate your PPT",
+    ppt_sub:"Turn insights into impact.",
+    ppt_ready:"Ready — check the new tab.",
+    ppt_need_level:"Please pick a level first.",
+    ppt_opening:"Opening your PPT assistant…",
+    ppt_popup_blocked:"Popup was blocked. Please allow popups or click again.",
+
+    /* Footer */
+    footer:"© 2025 Healthcare Dashboard Consultant — Designed by ",
+    footer_name:"Dr. Sara Habsa",
+    lang_toggle:"EN / AR",
+
+    /* GPT Bridge messages */
+    selected_level:"Selected level: ",
+    gpt_error_map:"Error: Could not map button to level.",
+    gpt_link_missing:"Error: GPT link not found for this level.",
+    gpt_popup_blocked:"Popup was blocked by the browser. Please allow popups or click again.",
+    gpt_opening:"Opening assistant...",
+  },
+  ar:{
+    hero_title:"مرحبًا بك في مستشار لوحات البيانات الصحية",
+    hero_sub:"شريكك الموثوق لتحليل وتحسين اللوحات — وتحويل الأرقام إلى رؤى مؤثرة.",
+
+    /* LEVELS */
+    levels_title:"اختر مستوى التحليل",
+
+    /* CARDS */
+    corp_title:"المستوى المؤسسي (المديرون وأصحاب المصلحة)",
+    corp_tag:"رؤية شاملة — قيادة ببصيرة",
+    corp_btn:"المستوى المؤسسي / الاستراتيجي",
+    corp_desc:"للقادة الذين يحولون البيانات إلى اتجاه وثقة — ويحوّلونها إلى رؤى إستراتيجية.",
+    tac_title:"المستوى التكتيكي (رؤساء الأقسام والمديرون)",
+    tac_tag:"أصلِح. حسِّن. أنجِز.",
+    tac_btn:"المستوى التكتيكي",
+    tac_desc:"لمن يترجم الأهداف الإستراتيجية إلى خطط عملية، يحدّد الأسباب الجذرية، ويقود الفرق لأفضل النتائج.",
+    fun_title:"المستوى التشغيلي (قادة الوحدات والمشرفون)",
+    fun_tag:"افهم. تحرّك. حسّن.",
+    fun_btn:"المستوى التشغيلي / الوظيفي",
+    fun_desc:"تركيز على سير العمل اليومي وقياسات الأداء — خطوات واضحة وبسيطة قابلة للتنفيذ.",
+    all_title:"جميع المستويات (رؤية شاملة)",
+    all_tag:"ارَ — افهم — قرّر.",
+    all_btn:"عرض شامل لكل المستويات",
+    all_desc:"قراءة كاملة للوحة مع رؤى موحدة وتوصيات تغطي جميع المستويات.",
+
+    /* HOW IT WORKS (5 خطوات) */
+    how_title:"كيف تعمل التجربة — ابدأ رحلتك الذكية 💡",
+    how_s1_b:"اختر مستوى التحليل",
+    how_s2_b:"يَفتح المساعد الذكي",
+    how_s3_b:"ارفع ملف الإكسل أو لوحة البيانات",
+    how_s4_b:"يحلل الذكاء الاصطناعي بياناتك",
+    how_s5_b:"أنشئ عرضك التقديمي",
+
+    /* INTEGRATION BANNER */
+    ib_title:"ترابط ذكي بين المستويات",
+    ib_desc:"نتائج كل مستوى تُستخدم كنقطة انطلاق للمستوى التالي، مما يخلق تناغمًا سلسًا عبر سلسلة اتخاذ القرار.",
+
+    /* PPT */
+    ppt_btn:"أنشئ عرضك التقديمي",
+    ppt_sub:"حوِّل الرؤى إلى أثر.",
+    ppt_ready:"جاهز — تفقدي التبويب الجديد.",
+    ppt_need_level:"من فضلك اختاري مستوى أولًا.",
+    ppt_opening:"جارٍ فتح مساعد الـPPT…",
+    ppt_popup_blocked:"تم حظر النافذة. اسمحي بالنوافذ المنبثقة أو أعيدي المحاولة.",
+
+    /* Footer */
+    footer:"© 2025 مستشار لوحات البيانات الصحية — تصميم ",
+    footer_name:"د. سارة حبسة",
+    lang_toggle:"AR / EN",
+
+    /* GPT Bridge messages */
+    selected_level:"تم اختيار المستوى: ",
+    gpt_error_map:"خطأ: تعذّر تحديد المستوى من الزر.",
+    gpt_link_missing:"خطأ: لم يتم العثور على رابط GPT لهذا المستوى.",
+    gpt_popup_blocked:"تم حظر النافذة المنبثقة من المتصفح. يُرجى السماح بالنوافذ المنبثقة أو إعادة المحاولة.",
+    gpt_opening:"جارٍ فتح المساعد...",
+  }
+};
+
+/* ===== Helpers ===== */
+const html = document.documentElement;
+const langBtn = document.getElementById('langBtn');
+let current=lsGet('lang')||'en';
+
+function applyLang(lang){
+  const d=T[lang]; if(!d) return;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.getAttribute("data-i18n");
+    if(d[key]!==undefined) el.textContent=d[key];
+  });
+  html.lang=(lang==='ar')?'ar':'en';
+  html.dir=(lang==='ar')?'rtl':'ltr';
+  langBtn.textContent=d.lang_toggle;
+  lsSet('lang', lang);
+}
+applyLang(current);
+
+/* ===== Language toggle ===== */
+langBtn?.addEventListener('click',()=>{
+  current=(current==='en')?'ar':'en';
+  applyLang(current);
+});
+
+/* ===== Scroll to Levels on click/keyboard (How it works block) ===== */
+document.getElementById('howit')?.addEventListener('click', ()=>{
+  document.getElementById('levels')?.scrollIntoView({behavior:'smooth', block:'start'});
+});
+document.getElementById('howit')?.addEventListener('keydown', (e)=>{
+  if(e.key==='Enter' || e.key===' '){
+    e.preventDefault();
+    document.getElementById('levels')?.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+});
+
+/* ================= GPT BRIDGE LOGIC (FINAL INTEGRATION — HARDENED) ================= */
+const gptLinks = {
+  corporate: 'https://chatgpt.com/g/g-68ebed5641488191ab5893162ccfe915-corporate-strategic-consultant',
+  tactical:  'https://chatgpt.com/g/g-68ebf1b6d5588191aecb24d52ed65832-tactical-operations-consultant',
+  functional:'https://chatgpt.com/g/g-68ebf7fedca88191b8d7292b166fcbd2-functional-operations-rcm-specialist',
+  all:       'https://chatgpt.com/g/g-68ec2b55a4588191b35347d6900137d1-all-levels'
+};
+function generateSessionId() { return 'HUB-' + Date.now().toString(36) + Math.random().toString(36).substring(2, 6); }
+/* navigation happens through each link's own href, set just before the browser follows it */
+
+document.querySelectorAll('.big-btn').forEach(btn=>{
+  btn.addEventListener('click',(e)=>{
+    const d=T[current];
+
+    // أولوية data-level ثم fallback إلى data-i18n
+    let level = btn.getAttribute('data-level');
+    if(!level){
+      const key = btn.getAttribute('data-i18n');
+      if (key === 'corp_btn') level = 'corporate';
+      else if (key === 'tac_btn') level = 'tactical';
+      else if (key === 'fun_btn') level = 'functional';
+      else if (key === 'all_btn') level = 'all';
+    }
+    if(!level){ 
+      e.preventDefault();
+      const msg = d.gpt_error_map || 'Error: Could not map button to level.'; 
+      document.getElementById('status').textContent = msg;
+      return; 
+    }
+
+    const gptLink = gptLinks[level];
+    if(!gptLink){ 
+      e.preventDefault();
+      const msg = d.gpt_link_missing || 'GPT link not found.'; 
+      document.getElementById('status').textContent = msg;
+      return; 
+    }
+
+    const sessionID = generateSessionId();
+    const currentLang = html.lang === 'ar' ? 'ar' : 'en';
+    const mode = (level === 'corporate') ? 'consultant' : 'operating';
+
+    const startStatePayload = { session_id: sessionID, level, mode, lang: currentLang, ts: Date.now() };
+    const firstMessage = `START_STATE=${JSON.stringify(startStatePayload)}. Please initiate the mandatory Intake Protocol for the ${level} analysis.`;
+    const fullGptUrl = `${gptLink}?text=${encodeURIComponent(firstMessage)}`;
+
+    lsSet('hds_consultant_level', level);
+    btn.href = fullGptUrl;
+    document.getElementById('status').textContent = (d.selected_level + `${level.toUpperCase()}. Initiated session: ${sessionID}.`);
+  });
+});
+
+/* =============== PPT Smart Flow with Glow + Click Sound =============== */
+const pptBtn = document.getElementById('pptBtn');
+const PPT_ASSISTANT = 'https://chatgpt.com/g/g-68ed00161ed4819183f389185938cbd5-ppt';
+
+pptBtn?.addEventListener('click', (e)=>{
+  const d = T[current];
+  const statusBox = document.getElementById('status');
+
+  // إزالة أي توهج سابق
+  pptBtn.classList.remove('btn-glow');
+
+  // 1) تحقّق من اختيار المستوى
+  const level = lsGet('hds_consultant_level');
+  if(!level){
+    e.preventDefault();
+    statusBox.textContent = d.ppt_need_level;
+    document.getElementById('levels')?.scrollIntoView({behavior:'smooth', block:'start'});
+    return;
+  }
+
+  // 2) جهّز رسالة الطلب وافتح المساعد الجديد
+  const message = `/ppt Please generate a professional PowerPoint presentation for the ${level} level.`;
+  const fullUrl = `${PPT_ASSISTANT}?text=${encodeURIComponent(message)}`;
+
+  // 3) تشغيل صوت وواجهة حاله
+  document.getElementById('clickSound')?.play().catch(()=>{});
+  statusBox.textContent = d.ppt_opening;
+
+  // ✨ توهج بصري
+  pptBtn.classList.add('btn-glow');
+
+  // 4) فتح التبويب عبر رابط الزر نفسه
+  pptBtn.href = fullUrl;
+  {
+    statusBox.textContent = d.ppt_ready;
+    setTimeout(()=> pptBtn.classList.remove('btn-glow'), 1000);
+  }
+});
+</script>
+
+
+</body></html>
